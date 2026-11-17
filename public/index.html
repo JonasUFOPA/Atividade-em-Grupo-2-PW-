@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Catálogo de jogos com operações de cadastro, consulta, edição e exclusão."
+    />
+    <title>PixelVault | Catálogo de Jogos</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="#"
+        ><span class="brand-mark">P</span
+        ><span>PIXEL<span class="brand-light">VAULT</span></span></a
+      >
+      <span class="topbar-label"
+        ><span class="status-dot"></span> CATÁLOGO LOCAL</span
+      >
+    </header>
+
+    <main class="container">
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">SUA COLEÇÃO, ORGANIZADA</p>
+          <h1>Explore seu<br /><span>universo gamer.</span></h1>
+          <p class="hero-description">
+            Gerencie seu catálogo de jogos em um só lugar. Cadastre, consulte,
+            edite e remova títulos com facilidade.
+          </p>
+          <a class="hero-link" href="#catalogo"
+            >Explorar catálogo <span>↓</span></a
+          >
+        </div>
+        <div class="hero-art" aria-hidden="true">
+          <div class="orbit orbit-one"></div>
+          <div class="orbit orbit-two"></div>
+          <div class="game-symbol">✦</div>
+          <div class="art-card art-card-one">▶</div>
+          <div class="art-card art-card-two">◆</div>
+          <div class="art-caption">
+            LEVEL UP<br /><strong>YOUR LIBRARY</strong>
+          </div>
+        </div>
+      </section>
+
+      <section class="stats" aria-label="Resumo do catálogo">
+        <div class="stat">
+          <span class="stat-label">JOGOS NO CATÁLOGO</span
+          ><strong id="total-jogos">—</strong>
+        </div>
+        <div class="stat">
+          <span class="stat-label">GÊNEROS DIFERENTES</span
+          ><strong id="total-generos">—</strong>
+        </div>
+        <div class="stat">
+          <span class="stat-label">NOTA MÉDIA</span
+          ><strong id="nota-media">—</strong>
+        </div>
+      </section>
+
+      <section class="catalog-section" id="catalogo">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">BIBLIOTECA</p>
+            <h2>Seu catálogo<span>.</span></h2>
+          </div>
+          <button class="primary-button" id="abrir-modal">
+            <span>＋</span> Adicionar jogo
+          </button>
+        </div>
+
+        <div class="toolbar">
+          <label class="search-box"
+            ><span>⌕</span
+            ><input
+              type="search"
+              id="pesquisa"
+              placeholder="Buscar por título, gênero ou plataforma..."
+              aria-label="Buscar jogos"
+          /></label>
+          <select id="filtro-genero" aria-label="Filtrar por gênero">
+            <option value="">Todos os gêneros</option>
+          </select>
+          <span class="result-count" id="contador-resultados"></span>
+        </div>
+
+        <div
+          id="mensagem"
+          class="message"
+          role="status"
+          aria-live="polite"
+        ></div>
+        <div id="lista-jogos" class="game-grid">
+          <div class="loading">Carregando catálogo...</div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <span class="brand"><span class="brand-mark">P</span> PIXELVAULT</span
+      ><span>Projeto acadêmico · Front-end + API + SQLite</span>
+    </footer>
+
+    <div class="modal-backdrop" id="modal" aria-hidden="true">
+      <section
+        class="modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modal-titulo"
+      >
+        <div class="modal-header">
+          <div>
+            <p class="eyebrow">GERENCIAR BIBLIOTECA</p>
+            <h2 id="modal-titulo">Adicionar jogo</h2>
+          </div>
+          <button class="close-button" id="fechar-modal" aria-label="Fechar">
+            ×
+          </button>
+        </div>
+        <form id="form-jogo">
+          <label
+            >Título do jogo<input
+              name="titulo"
+              required
+              maxlength="120"
+              placeholder="Ex.: Hades"
+          /></label>
+          <div class="form-row">
+            <label
+              >Gênero<input
+                name="genero"
+                required
+                maxlength="60"
+                placeholder="Ex.: Roguelike"
+            /></label>
+            <label
+              >Plataforma<input
+                name="plataforma"
+                required
+                maxlength="60"
+                placeholder="Ex.: PC"
+            /></label>
+          </div>
+          <div class="form-row">
+            <label
+              >Ano de lançamento<input
+                name="ano"
+                type="number"
+                min="1950"
+                max="2031"
+                required
+                placeholder="2024"
+            /></label>
+            <label
+              >Nota (0 a 10)<input
+                name="nota"
+                type="number"
+                min="0"
+                max="10"
+                step="0.1"
+                required
+                placeholder="9.0"
+            /></label>
+          </div>
+          <p class="form-hint">Todos os campos são obrigatórios.</p>
+          <div class="modal-actions">
+            <button type="button" class="secondary-button" id="cancelar">
+              Cancelar</button
+            ><button class="primary-button" type="submit" id="salvar">
+              Salvar jogo
+            </button>
+          </div>
+        </form>
+      </section>
+    </div>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </body>
+</html>

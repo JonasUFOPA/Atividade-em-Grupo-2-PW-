@@ -1,0 +1,14 @@
+{
+  "name": "catalogo-jogos",
+  "version": "1.0.1",
+  "description": "Catálogo de jogos com CRUD, Node.js, Express e SQLite",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "sql.js": "^1.13.0"
+  }
+}
